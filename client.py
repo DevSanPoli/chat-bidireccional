@@ -4,15 +4,24 @@ from tkinter import scrolledtext
 import threading
 from datetime import datetime
 
+# desarrollado por 
+    # Oscar Elias Aponte Pedraza
+    # Santiago Martínez 
+    # Jhonny Campo 
+    # Brayan Ali Nada Camargo 
+    # Camilo Estiben Hernandez Torres
+    
+# Path: client.py
+
 # Variables globales
 ip = ""
 puerto = 0
 nombre = ""
 client = None
-entrada_texto = None 
+entrada_texto = None
 chat_box = None
 
-
+# Función para conectar al servidor
 def conectar_servidor():
     global ip, puerto, nombre, client
     ip = ip_entry.get()
@@ -33,7 +42,7 @@ def enviar_mensaje():
     if mensaje:
         hora_actual = datetime.now().strftime("%H:%M:%S")  # Obtiene la hora actual
         mensaje_con_usuario = f"{nombre} [{hora_actual}]: {mensaje}"
-        chat_box.insert(tk.END, mensaje_con_usuario + "\n")  
+        chat_box.insert(tk.END, mensaje_con_usuario + "\n")
         client.send(mensaje_con_usuario.encode('utf-8'))
         entrada_texto.delete(0, tk.END)
 
@@ -101,14 +110,12 @@ def ventanaChat():
     # Inicia el bucle de la interfaz gráfica
     ventana.mainloop()
 
-
-#Metodo cuando el usuario cierra la ventana
+# Método para cerrar la aplicación
 def Cerrar():
     if client:
         client.close()
-    ventanaBienvenida.destroy()
+    ventanaChat.destroy()
     exit(0)
-
 
 # Inicia la ventana de bienvenida
 ventanaBienvenida()
